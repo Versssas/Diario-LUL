@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 
 const MEMBERS = [
-  "Parra","Boni","Furia","Leche","Zorro","Mago","Cabe","Oso","Porno",
-  "Motalin","Ochoa","Mani","Agus","Joni","Luchi","Bisca","Busca",
-  "Colombo","Vanar","Rober","Leva", "Tingui",
+  "Agus","Bisca","Boni","Busca","Cabe","Colombo","Furia","Joni","Leche","Leva",
+  "Luchi","Mago","Mani","Motalin","Ochoa","Oso","Parra","Porno","Rober",
+  "Tingui","Vanar","Zorro",
 ];
 
 const MEMBER_COLORS = {
@@ -29,7 +29,7 @@ const SAMPLE_POSTS = [
   },
   {
     id:"s2", author:"Furia",
-    content:"Hoy llegué tarde al laburo por quedarme dormido viendo highlights hasta las 4am. Sin arrepentimientos.",
+    content:"Hoy llegué tarde al laburo por quedarme dormido viendo highlights de mastan hasta las 4am. Sin arrepentimientos.",
     mood:"cansado", media:null,
     timestamp: new Date(Date.now()-1000*60*60*3).toISOString(),
     comments:[]
