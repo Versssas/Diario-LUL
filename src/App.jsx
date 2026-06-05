@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 const MEMBERS = [
   "Parra","Boni","Furia","Leche","Zorro","Mago","Cabe","Oso","Porno",
   "Motalin","Ochoa","Mani","Agus","Joni","Luchi","Bisca","Busca",
-  "Colombo","Vanar","Rober","Colo","Toro"
+  "Colombo","Vanar","Rober","Leva", "Tingui",
 ];
 
 const MEMBER_COLORS = {
@@ -12,14 +12,14 @@ const MEMBER_COLORS = {
   "Porno":"#c14c8a","Motalin":"#6940a5","Ochoa":"#1d6a8a","Mani":"#2d9596",
   "Agus":"#b0531e","Joni":"#1b6fae","Luchi":"#c76b15","Bisca":"#0d7864",
   "Busca":"#6e4fb5","Colombo":"#1e5f99","Vanar":"#c9820a","Rober":"#b83232",
-  "Colo":"#1f6b8e","Toro":"#5c3d9e"
+  "Leva":"#8a2be2", "Tingui":"#5d4037"
 };
 
 const MOODS = ["piola","engomado","normal","cansado","caliente"];
 
 const SAMPLE_POSTS = [
   {
-    id:"s1", author:"Oso",
+    id:"s1", author:"Parra",
     content:"Bienvenidos al Diario LUL. Esto es nuestro espacio para documentar la gloriosa mediocridad del día a día.",
     mood:"piola", media:null,
     timestamp: new Date(Date.now()-1000*60*60*48).toISOString(),
