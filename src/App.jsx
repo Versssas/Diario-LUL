@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { supabase } from "./supabase";
 
 const MEMBERS = [
   "Agus","Bisca","Boni","Busca","Cabe","Colombo","Furia","Joni","Leche","Leva",
@@ -255,18 +256,21 @@ export default function DiarioLUL() {
   const textareaRef = useRef(null);
 
   useEffect(() => {
-    async function load() {
-      try {
-        const saved = localStorage.getItem("lul-posts-v5");
+  async function load() {
+  const { data, error } = await supabase
+    .from("posts")
+    .select("*")
+    .order("created_at", { ascending: false });
 
-      if (saved) {
-        const p = JSON.parse(saved);
-        setPosts(p.length ? p : SAMPLE_POSTS);
-      }
-        else setPosts(SAMPLE_POSTS);
-      } catch { setPosts(SAMPLE_POSTS); }
-      setLoaded(true);
-    }
+  if (error) {
+    console.error(error);
+    setPosts(SAMPLE_POSTS);
+  } else {
+    setPosts(data || []);
+  }
+
+  setLoaded(true);
+}
     load();
   }, []);
 
@@ -282,18 +286,40 @@ export default function DiarioLUL() {
   }
 
   async function submitPost() {
-    if ((!content.trim() && !media) || !author) return;
-    setSaving(true);
-    const post = {
-      id: Date.now().toString(), author, content: content.trim(),
-      mood, media: media||null,
-      timestamp: new Date().toISOString(), comments:[]
-    };
-    const updated = [post, ...posts];
-    setPosts(updated); await saveAll(updated);
-    setContent(""); setMood("normal"); setMedia(null);
-    setSaving(false); setPage("feed");
+  if ((!content.trim() && !media) || !author) return;
+
+  setSaving(true);
+
+  const { error } = await supabase
+    .from("posts")
+    .insert({
+      author,
+      content: content.trim(),
+      mood,
+      media: media || null,
+    });
+
+  if (error) {
+    console.error(error);
+    alert("Error al guardar la publicación");
+    setSaving(false);
+    return;
   }
+
+  const { data } = await supabase
+    .from("posts")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  setPosts(data || []);
+
+  setContent("");
+  setMood("normal");
+  setMedia(null);
+
+  setSaving(false);
+  setPage("feed");
+}
 
   async function addComment(postId, comment) {
     const updated = posts.map(p => p.id!==postId ? p : {...p, comments:[...(p.comments||[]),comment]});
