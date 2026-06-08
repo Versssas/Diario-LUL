@@ -614,7 +614,7 @@ export default function DiarioLUL() {
             Diario LUL <span style={{margin:"0 4px",color:"#333"}}>›</span>
             <b>{page==="feed" ? "Feed" : "Nueva entrada"}</b>
           </div>
-          {page==="feed" && <button className="new-btn" onClick={() => setPage("new")}>+ Nueva entrada</button>}
+          {page==="feed" && <button className="new-btn" onClick={() => setPage("new")}>+ Nuevo post</button>}
         </div>
 
         <div className="content">
@@ -646,7 +646,7 @@ export default function DiarioLUL() {
 
           {page==="new" && (
             <div className="new-form">
-              <div className="page-title" style={{marginBottom:4}}>Nueva entrada</div>
+              <div className="page-title" style={{marginBottom:4}}>Nuevo post</div>
               <div className="page-sub" style={{marginBottom:32}}>
                 {new Date().toLocaleDateString("es-AR",{weekday:"long",day:"numeric",month:"long"})}
               </div>
