@@ -136,23 +136,38 @@ function MediaUploadBtn({ onMedia, compact=false }) {
 // Author picker dropdown
 function AuthorPicker({ value, onChange, placeholder="Elegí tu nombre..." }) {
   const [open, setOpen] = useState(false);
+  const [menuPos, setMenuPos] = useState({});
   const ref = useRef(null);
+  
   useEffect(() => {
     function h(e) { if (ref.current && !ref.current.contains(e.target)) setOpen(false); }
     document.addEventListener("mousedown", h);
     return () => document.removeEventListener("mousedown", h);
   }, []);
+
+  function handleOpen() {
+    const rect = ref.current.getBoundingClientRect();
+    const spaceBelow = window.innerHeight - rect.bottom;
+    const menuHeight = 260;
+    if (spaceBelow < menuHeight) {
+      setMenuPos({ bottom: window.innerHeight - rect.top + 4, left: rect.left, width: rect.width });
+    } else {
+      setMenuPos({ top: rect.bottom + 4, left: rect.left, width: rect.width });
+    }
+    setOpen(o => !o);
+  }
+
   return (
     <div style={{position:"relative"}} ref={ref}>
-      <button className="author-btn" onClick={() => setOpen(o=>!o)} type="button">
+      <button className="author-btn" onClick={handleOpen} type="button">
         {value
           ? <><Avatar name={value} size={20}/><span style={{color:getColor(value),fontWeight:600,fontSize:14}}>{value}</span></>
           : <span style={{color:"#555",fontSize:14}}>{placeholder}</span>
         }
-        <span style={{marginLeft:"auto",fontSize:11,color:"#555",transition:"transform .2s",display:"inline-block",transform:open?"rotate(180deg)":"none"}}>▼</span>
+        <span style={{marginLeft:"auto",fontSize:11,color:"#555",display:"inline-block",transition:"transform .2s",transform:open?"rotate(180deg)":"none"}}>▼</span>
       </button>
       {open && (
-        <div className="author-menu">
+        <div className="author-menu" style={{position:"fixed", top:"auto", bottom:"auto", ...menuPos}}>
           {MEMBERS.map(m => (
             <div key={m} className="author-opt" onClick={() => { onChange(m); setOpen(false); }}>
               <div style={{width:7,height:7,borderRadius:2,background:getColor(m),flexShrink:0}}/>
