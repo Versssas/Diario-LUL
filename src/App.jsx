@@ -507,12 +507,13 @@ export default function DiarioLUL() {
         }
         .author-btn:hover { border-color:#444; }
         .author-menu {
-          position:absolute; top:calc(100% + 5px); left:0; right:0;
+          position:fixed; 
           background:#1e1e1e; border:1px solid #333; border-radius:8px;
-          box-shadow:0 8px 24px rgba(0,0,0,.5); z-index:50;
-          display:grid; grid-template-columns:1fr 1fr 1fr;
+          box-shadow:0 8px 24px rgba(0,0,0,.5); z-index:9999;
+          display:flex; flex-direction:column;
           max-height:260px; overflow-y:auto;
-        }
+          min-width:160px;
+}
         .author-opt {
           padding:9px 14px; font-size:13px; font-weight:500;
           cursor:pointer; display:flex; align-items:center; gap:8px; transition:background .1s;
