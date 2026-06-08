@@ -205,7 +205,7 @@ function CommentThread({ post, onAddComment }) {
               <Avatar name={c.author} size={22}/>
               <div className="comment-body">
                 <span className="comment-author" style={{color:getColor(c.author)}}>{c.author}</span>
-                <span className="comment-time">{timeAgo(c.timestamp)}</span>
+                <span className="comment-time">{timeAgo(c.created_at)}</span>
                 {c.text && <div className="comment-text">{c.text}</div>}
                 {c.media && <MediaDisplay media={c.media}/>}
               </div>
@@ -224,7 +224,7 @@ function CommentThread({ post, onAddComment }) {
                   value={text}
                   onChange={e => setText(e.target.value)}
                   onKeyDown={e => e.key==="Enter" && !e.shiftKey && submit()}
-                  maxLength={400}
+                  maxLength={4000}
                 />
                 <MediaUploadBtn onMedia={setMedia} compact={true}/>
                 <button
@@ -606,7 +606,7 @@ export default function DiarioLUL() {
                     <div className="post-header">
                       <Avatar name={post.author} size={28}/>
                       <span className="post-author" style={{color:getColor(post.author)}}>{post.author}</span>
-                      <span className="post-time">{timeAgo(post.timestamp)}</span>
+                      <span className="post-time">{timeAgo(post.created_at)}</span>
                       <div className="mood-pill">{post.mood}</div>
                     </div>
                     {post.content && <div className="post-body">{post.content}</div>}
@@ -648,11 +648,11 @@ export default function DiarioLUL() {
                     placeholder="Escribí acá..."
                     value={content}
                     onChange={e => setContent(e.target.value)}
-                    maxLength={800}
+                    maxLength={10000}
                     rows={5}
                   />
                 </div>
-                <div className="char-count">{content.length}/800</div>
+                <div className="char-count">{content.length}/10000</div>
               </div>
 
               <div className="form-field">
