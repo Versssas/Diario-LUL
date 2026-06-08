@@ -621,7 +621,7 @@ export default function DiarioLUL() {
           {page==="feed" && (
             <>
               <div className="page-title">Diario LUL</div>
-              <div className="page-sub">{posts.length} entrada{posts.length!==1?"s":""} · compartido con el grupo</div>
+              <div className="page-sub">{posts.length} posteo{posts.length!==1?"s":""} · para estar al dia</div>
               {!loaded ? (
                 <div className="empty"><p>Cargando...</p></div>
               ) : posts.length===0 ? (
