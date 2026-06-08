@@ -274,7 +274,7 @@ export default function DiarioLUL() {
   async function load() {
   const { data, error } = await supabase
     .from("posts")
-    .select("*")
+    .select("*, comments(*)")
     .order("created_at", { ascending: false });
 
   if (error) {
@@ -336,10 +336,20 @@ export default function DiarioLUL() {
   setPage("feed");
 }
 
-  async function addComment(postId, comment) {
-    const updated = posts.map(p => p.id!==postId ? p : {...p, comments:[...(p.comments||[]),comment]});
-    setPosts(updated); await saveAll(updated);
-  }
+ async function addComment(postId, comment) {
+  const { error } = await supabase.from("comments").insert({
+    post_id: postId,
+    author: comment.author,
+    text: comment.text,
+  });
+  if (error) { console.error(error); return; }
+  // recargar posts
+  const { data } = await supabase
+    .from("posts")
+    .select("*, comments(*)")
+    .order("created_at", { ascending: false });
+  setPosts(data || []);
+}
 
   return (
     <div style={{minHeight:"100vh",background:"#191919",color:"#e3e3e3",fontFamily:"'DM Sans',sans-serif"}}>
