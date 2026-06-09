@@ -424,7 +424,7 @@ export default function DiarioLUL() {
           margin-left:auto; padding:3px 10px; border-radius:20px;
           background:#1e1e1e; border:1px solid #2e2e2e; font-size:12px; color:#666;
         }
-        .post-body { font-size:15px; line-height:1.7; color:#ccc; margin-bottom:10px; margin-left:38px; }
+        .post-body { font-size:15px; line-height:1.7; color:#ccc; margin-bottom:10px; margin-left:38px; white-space:pre-wrap; }
 
         /* Media display */
         .media-display-wrap { margin-left:38px; margin-bottom:12px; }
@@ -487,7 +487,7 @@ export default function DiarioLUL() {
         .comment-body { flex:1; }
         .comment-author { font-size:13px; font-weight:600; margin-right:8px; }
         .comment-time { font-size:11px; color:#555; }
-        .comment-text { font-size:13px; color:#bbb; margin-top:2px; line-height:1.5; }
+        .comment-text { font-size:13px; color:#bbb; margin-top:2px; line-height:1.5; white-space:pre-wrap; }
         .comment-input-row {
           display:flex; gap:8px; align-items:flex-start;
           padding-top:10px; border-top:1px solid #242424; margin-top:4px;
