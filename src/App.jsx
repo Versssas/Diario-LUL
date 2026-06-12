@@ -93,6 +93,7 @@ function MediaPreview({ media, onRemove }) {
 
 // Media display in feed (no remove button)
 function MediaDisplay({ media }) {
+  const [lightbox, setLightbox] = useState(false);
   if (!media) return null;
   const isVideo = media.type === "video";
   return (
@@ -100,7 +101,29 @@ function MediaDisplay({ media }) {
       {isVideo ? (
         <video src={media.url} controls className="media-display-video" />
       ) : (
-        <img src={media.url} alt="adjunto" className="media-display-img" onClick={e => window.open(media.url)} />
+        <>
+          <img
+            src={media.url}
+            alt="adjunto"
+            className="media-display-img"
+            onClick={() => setLightbox(true)}
+          />
+          {lightbox && (
+            <div
+              onClick={() => setLightbox(false)}
+              style={{
+                position:"fixed", inset:0, background:"rgba(0,0,0,0.9)",
+                display:"flex", alignItems:"center", justifyContent:"center",
+                zIndex:9999, cursor:"zoom-out", padding:24,
+              }}
+            >
+              <img
+                src={media.url}
+                style={{maxWidth:"100%", maxHeight:"100%", borderRadius:8, objectFit:"contain"}}
+              />
+            </div>
+          )}
+        </>
       )}
     </div>
   );
